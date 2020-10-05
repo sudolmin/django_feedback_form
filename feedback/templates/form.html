@@ -1,0 +1,103 @@
+{% load crispy_forms_tags %}
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
+	<title>FeedBack Form</title>
+	<style>
+	  body {
+	    position: relative;
+	  	background: #134E5E;  /* fallback for old browsers */
+		background: -webkit-linear-gradient(0deg, #134E5E, #5bc874 );  /* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(0deg, #134E5E, #5bc874 ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		font-family: 'Yanone Kaffeesatz', sans-serif;
+	}
+	  div.row {
+	    height: 500px;
+	  }
+	  div.col-sm-6{
+	  	text-align: center;
+	  	padding-top: 2%;}
+	 
+	  h1{text-align: center;}
+	  .feedform{
+	  	border: 1px;
+	  	border-style: solid;
+	  	border-color: #e0ebeb;
+	  	padding: 7%;
+	  	box-shadow: 0px 0px 18px;
+	  	border-radius: 20px;
+	  	background: #D7DDEd;
+	  	font-size: 4vw;
+	  	}
+
+  	.eduright{
+		font-family: Pacifico;
+		font-size: 5vw;
+		margin: 1%;
+		text-shadow: 0 0 10px #24ff57;
+	}
+	@media screen and (min-width: 650px) {
+			.feedform{font-size: 1.5vw;}
+	</style>
+</head>
+
+<body>
+	<form method = "POST" name ="FeedForm">
+		<div class="eduright text-center" >LOGO</div>
+		<div class="text-center" style="margin-top: 5%; font-size: 25px;">Feedback Form for {{ Recipient }}</div>
+		<hr>
+		{% for Question, form in formset %}
+		<div>
+			<div class="row" style="font-size: 16;"> 
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6">
+					<div class="feedform">
+						{% csrf_token %}
+						<h2>{{ Question }}</h2><br>
+						{{ form|crispy }}
+					</div>
+				</div>
+				<div class="col-sm-3"></div>   
+      		</div>
+      		<hr>
+		</div>
+		{% endfor %}
+		<div class="d-flex justify-content-center">
+			<button class="btn-lg btn-success">Submit</button>
+		</div>
+	</form>
+	<script> 
+		var iter = document.getElementsByClassName("numberinput").length;
+		var rateC = document.getElementsByClassName("numberinput")
+		for (i = 0; i < iter; i++) {
+  			rateC[i].setAttribute("max", "10");
+  			rateC[i].setAttribute("min", "0");
+		}
+
+		document.addEventListener("click", 
+			function changebg(){
+				for (i = 0; i < iter; i++) {
+				var form = document.getElementsByClassName("feedform")[i]
+	  			if (rateC[i].value >= 7){
+					form.style.background="#99ff99";
+					form.style.background="-webkit-linear-gradient(to top, #99ff99, #f0f0f5)";
+					form.style.background="linear-gradient(to top, #99ff99, #f0f0f5)";
+				}
+				else if (rateC[i].value <= 3){
+					form.style.background="#ff8080";
+					form.style.background="-webkit-linear-gradient(to top, #ff8080, #f0f0f5)";
+					form.style.background="linear-gradient(to top, #ff8080, #f0f0f5)";
+				}
+				else{
+					form.style.background="#99ccff";
+					form.style.background="-webkit-linear-gradient(to top, #99ccff, #f0f0f5)";
+					form.style.background="linear-gradient(to top, #99ccff, #f0f0f5)";
+				}
+			}
+				
+			});
+	</script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
