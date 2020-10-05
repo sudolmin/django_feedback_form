@@ -19,7 +19,7 @@ def feedform(request, slug):
 		for i in range(len(a1)):
 			if a1[i].author == request.user:
 				messages.success(request, f'You already filled {t_obj.Recipient.first_name} {t_obj.Recipient.last_name}\'s feedback form.')
-				return redirect("home")
+				return redirect("fbf")		#create your own url where you want to redirect
 		descibe=dict(request.POST)['Descibe']
 		rate=dict(request.POST)['Rate']
 		print(rate)
@@ -42,7 +42,7 @@ def feedform(request, slug):
 				i+=1
 			if i == len(flist):
 				messages.success(request, f'Your feedback form registered successfully.')
-				return redirect("home")
+				return redirect("fbf")				#create your own url where you want to redirect
 
 	else:
 		for Ques in Questions_obj_list:
